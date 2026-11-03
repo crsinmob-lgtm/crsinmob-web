@@ -545,42 +545,66 @@ def aplica_portada(props):
 
     Basta con poner los archivos en la carpeta portada/ de la raiz:
         portada/*.mp4       -> video de la portada
-        portada/poster.jpg  -> primer cuadro que se ve mientras carga
+        portada/poster.jpg  -> opcional; si no esta, se usa la foto principal
         portada/musica.mp3  -> musica de fondo del sitio
         portada/intro.mp3   -> sonido de la pantalla de carga
+
+    No importa si la carpeta o los archivos van con mayusculas.
     """
-    origen = os.path.join(RAIZ, "portada")
-    if not os.path.isdir(origen):
+    origen = None
+    for d in sorted(os.listdir(RAIZ)):
+        if d.lower() == "portada" and os.path.isdir(os.path.join(RAIZ, d)):
+            origen = os.path.join(RAIZ, d)
+            break
+    if not origen:
         return
+
+    dentro = sorted(os.listdir(origen))
+    def busca(*nombres):
+        for f in dentro:
+            if f.lower() in nombres:
+                return os.path.join(origen, f)
+        return None
+
     destino_media = os.path.join(SALIDA, "estaticos", "media")
     os.makedirs(destino_media, exist_ok=True)
     cambios = []
-    videos = sorted(f for f in os.listdir(origen) if f.lower().endswith((".mp4", ".webm", ".mov")))
+
+    videos = [f for f in dentro if f.lower().endswith((".mp4", ".webm", ".mov", ".m4v"))]
     if videos:
+        ruta = os.path.join(origen, videos[0])
+        peso = os.path.getsize(ruta) / 1e6
         if not videos[0].lower().endswith(".mp4"):
-            aviso("portada/%s no es .mp4; el navegador podria no reproducirlo" % videos[0])
-        peso = os.path.getsize(os.path.join(origen, videos[0])) / 1e6
-        if peso > 8:
-            aviso("el video de portada pesa %.0f MB; conviene dejarlo abajo de 5 MB" % peso)
-        shutil.copy(os.path.join(origen, videos[0]), os.path.join(destino_media, "hero.mp4"))
-        cambios.append("video (%s, %.1f MB)" % (videos[0], peso))
-    for archivo, hacia in (("poster.jpg", os.path.join(SALIDA, "estaticos", "poster.jpg")),
-                           ("musica.mp3", os.path.join(destino_media, "ambiente.mp3")),
-                           ("intro.mp3",  os.path.join(destino_media, "intro.mp3"))):
-        ruta = os.path.join(origen, archivo)
-        if os.path.isfile(ruta):
+            aviso("%s no es .mp4; algunos navegadores no lo reproducen" % videos[0])
+        if peso > 6:
+            aviso("el video de portada pesa %.1f MB; conviene dejarlo abajo de 5 MB "
+                  "para que cargue rapido en celular" % peso)
+        shutil.copy(ruta, os.path.join(destino_media, "hero.mp4"))
+        cambios.append("video %s (%.1f MB)" % (videos[0], peso))
+
+    for nombres, hacia, etiqueta in (
+            (("poster.jpg", "poster.jpeg", "poster.png"),
+             os.path.join(SALIDA, "estaticos", "poster.jpg"), "poster"),
+            (("musica.mp3", "ambiente.mp3"),
+             os.path.join(destino_media, "ambiente.mp3"), "musica"),
+            (("intro.mp3",),
+             os.path.join(destino_media, "intro.mp3"), "intro")):
+        ruta = busca(*nombres)
+        if ruta:
             shutil.copy(ruta, hacia)
-            cambios.append(archivo)
+            cambios.append(etiqueta)
+
     # si cambio el video y no hay poster propio, usamos la mejor foto del
     # inventario para que el primer instante no muestre un cuadro ajeno
-    if videos and not os.path.isfile(os.path.join(origen, "poster.jpg")):
+    if videos and not busca("poster.jpg", "poster.jpeg", "poster.png"):
         mejor = next((q["fotos"][0] for q in props if q.get("fotos")), None)
         if mejor:
             shutil.copy(os.path.join(SALIDA, mejor["g"].lstrip("/")),
                         os.path.join(SALIDA, "estaticos", "poster.jpg"))
             cambios.append("poster tomado de la primera propiedad")
+
     if cambios:
-        print("   portada propia: " + ", ".join(cambios))
+        print("   portada propia (%s): %s" % (os.path.basename(origen), ", ".join(cambios)))
 
 
 def pagina_portada(props):
