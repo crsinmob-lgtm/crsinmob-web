@@ -1,4 +1,10 @@
 (function(){
+/* Candado: si por lo que sea el guion se carga dos veces, la segunda no hace
+   nada. Dos copias corriendo a la vez peleaban por el audio y lo arrancaban
+   dos veces. */
+if (window.__crsinmob) return;
+window.__crsinmob = true;
+
 var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 var $ = function(s,c){ return (c||document).querySelector(s); };
 var $$ = function(s,c){ return [].slice.call((c||document).querySelectorAll(s)); };
@@ -79,6 +85,7 @@ function armar(){
   ev.forEach(function(e){ addEventListener(e, abrir, {passive:true}); });
 }
 armar();
+try { aud.load(); } catch (err) {}
 
 /* La pantalla de carga solo sale mientras el sitio carga de verdad, y una
    sola vez por visita: si el visitante va a una propiedad y regresa, ya no
@@ -86,7 +93,14 @@ armar();
 var YA_VISTA = false;
 try { YA_VISTA = sessionStorage.getItem("crs-intro") === "1"; } catch (err) {}
 
-var MIN = 900, MAX = 6000, arranque = Date.now(), cargado = false, tick = null;
+var MIN = 900, MAX = 6500, arranque = Date.now(), cargado = false, tick = null;
+
+/* Si el navegador deja sonar la intro, le damos aire para que se escuche;
+   si la bloquea, no tiene caso esperar y entramos en cuanto cargue. */
+function minimoReal(){
+  var sonando = aIntro && !aIntro.paused && !aIntro.muted && aIntro.currentTime > 0.15;
+  return sonando ? 2600 : MIN;
+}
 
 function marcar(){ try { sessionStorage.setItem("crs-intro", "1"); } catch (err) {} }
 
@@ -100,7 +114,7 @@ function entrar(){
       if (aIntro.volume <= 0){ clearInterval(fo); aIntro.pause(); } }, 110);
   }
   arrancaHero();
-  setTimeout(function(){ if (typeof amb === "function") amb(true); }, 700);
+  setTimeout(function(){ if (typeof amb === "function") amb(true); }, 250);
 }
 function done(){ entrar(); }
 
@@ -134,7 +148,7 @@ if (RM || YA_VISTA){
     var p = cargado ? 100 : Math.min(94, (t / MAX) * 100 + 6);
     pct.textContent = Math.round(p);
     pbar.style.setProperty("--p", p / 100);
-    if ((cargado && t >= MIN) || t >= MAX){
+    if ((cargado && t >= minimoReal()) || t >= MAX){
       clearInterval(tick); tick = null;
       pct.textContent = 100; pbar.style.setProperty("--p", 1);
       setTimeout(done, 280);
