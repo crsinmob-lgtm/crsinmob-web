@@ -1,0 +1,30 @@
+# Configuración de Netlify para el sitio de CRSINMOB.
+# Cada vez que se sube un cambio a GitHub, Netlify corre este motor
+# y vuelve a generar el sitio completo.
+
+[build]
+  command = "pip install --upgrade pip && pip install -r requirements.txt && python3 motor/build.py"
+  publish = "publicado"
+
+[build.environment]
+  PYTHON_VERSION = "3.11"
+
+[[headers]]
+  for = "/fotos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/estaticos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[redirects]]
+  from = "/propiedades"
+  to = "/#propiedades"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

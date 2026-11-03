@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITULO}}</title>
+<meta name="description" content="{{DESC}}">
+<meta name="google-site-verification" content="2nosowGcOraiofK65gwlEBGBHN-7-_ojg3biMwfZZWs">
+<link rel="canonical" href="{{SITIO}}/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{TITULO}}">
+<meta property="og:description" content="{{DESC}}">
+<meta property="og:image" content="{{SITIO}}{{FOTO_A}}">
+<meta property="og:url" content="{{SITIO}}/">
+<link rel="icon" href="/estaticos/icono-navy.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Figtree:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/estaticos/estilo.css">
+<script>document.documentElement.className+=" js";</script>
+{{JSONLD}}
+</head><body>
+<div class="prog" id="prog"></div>
+<div class="cur" id="cur"><span>Ver</span></div>
+<div class="pre" id="pre">
+  <div class="pre-ph">
+    <img src="{{FOTO_A}}" alt=""><img src="{{FOTO_B}}" alt=""><img src="{{FOTO_C}}" alt="">
+  </div>
+  <div class="pre-veil"></div><div class="pre-glow"></div>
+  <span class="rip"></span><span class="rip"></span><span class="rip"></span>
+  <span class="swp"></span><span class="swp"></span><span class="swp"></span>
+  <div class="pre-in">
+    <img class="lg" src="/estaticos/icono-blanco.png" alt="">
+    <b class="num" id="pct">0</b>
+    <i id="pbar"></i>
+    <u>CRSINMOB · Real Estate</u>
+  </div>
+</div>
+<audio id="aIntro" preload="auto" src="/estaticos/media/intro.mp3"></audio>
+
+<header class="hdr" id="hdr"><div class="wrap hdr-in">
+  <a class="brand" href="#top"><img src="/estaticos/icono-navy.png" alt="">
+    <span><b>CRSINMOB</b><small>REAL ESTATE</small></span></a>
+  <nav class="nav">
+    <a href="#propiedades">Propiedades</a><a href="#zonas">Zonas</a>
+    <a href="#servicios">Servicios</a><a href="#nosotros">Nosotros</a>
+  </nav>
+  <a class="btn btn-ghost" href="#contacto"><span>Vender mi inmueble</span></a>
+  <a class="btn btn-solid" href="https://wa.me/523311307470" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5v-.5c0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.4 1.9.8 2.6.9 3.5.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.6 13.5 3.6 12 3.6 7.4 7.4 3.6 12 3.6S20.4 7.4 20.4 12 16.6 20.2 12 20.2z"/></svg>
+    <span>WhatsApp</span></a>
+</div></header>
+
+<audio id="aud" loop preload="auto" src="/estaticos/media/ambiente.mp3"></audio>
+
+<main id="top">
+
+<section class="hero" id="hero">
+  <div class="hero-bg" id="hbg">
+    <img src="/estaticos/poster.jpg" alt="">
+    <video id="vid" muted playsinline preload="metadata" poster="/estaticos/poster.jpg">
+      <source src="/estaticos/media/hero.mp4" type="video/mp4">
+    </video>
+    <span class="flash" id="flash"></span>
+  </div>
+  <div class="wrap hero-in" id="hin">
+    <h1>
+      <span class="ln" data-split>Ayudamos a encontrar</span>
+      <span class="ln" data-split><em>el lugar</em> donde</span>
+      <span class="ln" data-split>empieza un patrimonio.</span>
+    </h1>
+    <p class="hero-sub">Desde 2017, compra, venta y asesoría patrimonial en Guadalajara, la Ribera de Chapala y los Altos de Jalisco.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="#propiedades"><span>Ver propiedades</span></a>
+      <a class="btn btn-light" href="#contacto"><span>Vender mi inmueble</span></a>
+    </div>
+  </div>
+  <span class="cue">Desliza</span>
+</section>
+
+<div class="marq"><div class="marq-in" data-marq="{{MARQUEE}}"></div></div>
+
+<section class="sec"><div class="wrap">
+  <p class="edi" data-words>Somos expertos en la promoción de <em>cualquier inmueble</em> — casa, departamento, terreno, local o nave — en <em>venta o renta</em>, y acompañamos cada operación hasta la <em>firma</em>.</p>
+</div></section>
+
+<div class="marq rev"><div class="marq-in" data-marq="Opinión de valor|Fotografía y video|Promoción|Respaldo legal|Claridad fiscal|Escrituración"></div></div>
+
+<section class="sec" id="zonas"><div class="wrap">
+  <div class="sec-hd">
+    <div class="rv"><p class="eyebrow">Dónde operamos</p><h2>Conozca <em>nuestro</em> territorio</h2></div>
+    <a class="more rv rv-d1" href="#propiedades">Ver todas las propiedades</a>
+  </div>
+  <div class="zonas" style="grid-template-columns:repeat({{NCOL}},1fr)">
+{{ZONAS}}
+  </div>
+</div></section>
+
+<section class="sec cif"><div class="wrap">
+  <div class="sec-hd"><div class="rv"><p class="eyebrow">En números</p>
+    <h2>Donde las cifras reflejan <em>patrimonios</em>, no estadísticas</h2></div></div>
+  <div class="cif-grid">
+{{CIFRAS}}
+  </div>
+</div></section>
+
+<section class="sec" id="propiedades"><div class="wrap">
+  <div class="sec-hd">
+    <div class="rv"><p class="eyebrow">Inventario</p><h2>Propiedades <em>en venta</em></h2></div>
+    <a class="more rv rv-d1" href="#contacto">¿Busca algo distinto? Escríbanos</a>
+  </div>
+  <div class="car" id="car">
+{{PROPIEDADES}}
+  </div>
+  <div class="car-ctl">
+    <button id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15.4 4.6 8 12l7.4 7.4 1.4-1.4L10.8 12l6-6z"/></svg></button>
+    <button id="next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M8.6 4.6 16 12l-7.4 7.4-1.4-1.4L13.2 12l-6-6z"/></svg></button>
+    <span class="car-bar"><i id="cbar"></i></span>
+    <span class="car-cnt num" id="ccnt">01 / {{TOTAL}}</span>
+  </div>
+</div></section>
+
+<section class="sec" id="nosotros" style="padding-top:0"><div class="wrap about">
+  <div class="rv">
+    <p class="eyebrow">Nosotros</p>
+    <h2 style="margin-top:16px">No solo vendemos inmuebles — cuidamos el <em>patrimonio</em> que hay detrás</h2>
+    <p>Somos una inmobiliaria de Zapopan con área jurídica propia. Revisamos título, gravámenes y situación fiscal antes de promover una propiedad, y acompañamos a comprador y vendedor hasta la firma de la escritura.</p>
+    <p style="margin-top:18px">Un solo asesor responsable de principio a fin, sin intermediarios sueltos.</p>
+    <p style="margin-top:32px"><a class="btn" href="#contacto"><span>Conózcanos</span></a></p>
+  </div>
+  <div class="about-m mask"><img src="{{FOTO_NOSOTROS}}" alt=""></div>
+</div></section>
+
+<section class="sec" id="servicios" style="padding-top:0"><div class="wrap">
+  <div class="sec-hd"><div class="rv"><p class="eyebrow">Servicios</p>
+    <h2>Todo lo que incluye vender <em>con nosotros</em></h2></div></div>
+  <div>
+    <article class="svc"><span class="n num">01</span><div><b>Opinión de valor</b><p>Analizamos el mercado de su zona y entregamos un rango de precio sustentado, no una corazonada.</p></div></article>
+    <article class="svc"><span class="n num">02</span><div><b>Fotografía y video</b><p>Sesión profesional, recorrido en video y ficha descargable en PDF para compartir por WhatsApp.</p></div></article>
+    <article class="svc"><span class="n num">03</span><div><b>Promoción inmobiliaria</b><p>Publicación en los principales portales, redes sociales y una página propia para su propiedad.</p></div></article>
+    <article class="svc"><span class="n num">04</span><div><b>Filtro de prospectos</b><p>Atendemos, calificamos y acompañamos cada visita. Usted solo recibe interesados reales.</p></div></article>
+    <article class="svc"><span class="n num">05</span><div><b>Respaldo legal</b><p>Investigación de título y gravámenes, contratos a la medida y acompañamiento hasta la notaría.</p></div></article>
+    <article class="svc"><span class="n num">06</span><div><b>Claridad fiscal</b><p>Le anticipamos el impacto fiscal de la operación desde el inicio, para que no haya sorpresas al cierre.</p></div></article>
+  </div>
+</div></section>
+
+<section class="cta" id="contacto">
+  <div class="cta-bg"><img class="par" data-speed="46" src="{{FOTO_CTA}}" alt=""></div>
+  <div class="rv">
+    <h2>Hablemos de <em>su patrimonio</em></h2>
+    <p>Ya sea que busque una residencia, quiera vender su inmueble o necesite revisar una operación antes de firmar, nuestro equipo puede ayudarle.</p>
+    <div class="cta-b">
+      <span class="mag"><a class="btn btn-gold" href="https://wa.me/523311307470" target="_blank" rel="noopener"><span>Escribir por WhatsApp</span></a></span>
+      <span class="mag"><a class="btn btn-light" href="mailto:crsinmob@gmail.com"><span>crsinmob@gmail.com</span></a></span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ftr"><div class="wrap">
+  <div class="ftr-top">
+    <div class="rv">
+      <img src="/estaticos/logo-blanco.png" alt="CRSINMOB Real Estate">
+      <p class="slg">Compra, venta y asesoría patrimonial en Jalisco,<br>con respaldo legal y fiscal propio.</p>
+      <ul>
+        <li>Av. López Mateos <span class="num">5295-B</span> · Col. La Calma, Zapopan, Jalisco</li>
+        <li><a class="num" href="https://wa.me/523311307470">WhatsApp 33 1130 7470</a> · <a href="mailto:crsinmob@gmail.com">crsinmob@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr-btm"><span class="num">© 2026 CRSINMOB Real Estate</span></div>
+</div></footer>
+
+<a class="wa" href="https://wa.me/523311307470" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5v-.5c0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.4 1.9.8 2.6.9 3.5.7.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.6 13.5 3.6 12 3.6 7.4 7.4 3.6 12 3.6S20.4 7.4 20.4 12 16.6 20.2 12 20.2z"/></svg>
+</a>
+
+<script>
+(function(){
+var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+var $ = function(s,c){ return (c||document).querySelector(s); };
+var $$ = function(s,c){ return [].slice.call((c||document).querySelectorAll(s)); };
+
+/* ---- titular letra por letra ---- */
+var chIdx = 0;
+$$("[data-split]").forEach(function(el){
+  var nodes = [].slice.call(el.childNodes);
+  el.innerHTML = "";
+  function put(text, host){
+    text.split(/(\s+)/).forEach(function(tok){
+      if (!tok) return;
+      if (/^\s+$/.test(tok)){ host.appendChild(document.createTextNode(" ")); return; }
+      var w = document.createElement("span"); w.className = "w";
+      tok.split("").forEach(function(c){
+        var sp = document.createElement("span");
+        sp.className = "ch"; sp.style.transitionDelay = (chIdx*0.018)+"s";
+        sp.textContent = c; chIdx++; w.appendChild(sp);
+      });
+      host.appendChild(w);
+    });
+  }
+  nodes.forEach(function(n){
+    if (n.nodeType === 3) put(n.textContent, el);
+    else { var em = document.createElement("em"); el.appendChild(em); put(n.textContent, em); }
+  });
+});
+
+/* ---- párrafo editorial: palabra por palabra ---- */
+$$("[data-words]").forEach(function(el){
+  var nodes = [].slice.call(el.childNodes), i = 0;
+  el.innerHTML = "";
+  function put(text, italic){
+    text.split(/(\s+)/).forEach(function(tok){
+      if (!tok || /^\s+$/.test(tok)) { if (tok) el.appendChild(document.createTextNode(" ")); return; }
+      var w = document.createElement("span");
+      w.className = "wd"; w.style.transitionDelay = (i*0.055)+"s"; i++;
+      if (italic){ var em = document.createElement("em"); em.textContent = tok; w.appendChild(em); }
+      else w.textContent = tok;
+      el.appendChild(w);
+    });
+  }
+  nodes.forEach(function(n){ put(n.textContent, n.nodeType !== 3); });
+});
+
+/* ---- precarga ---- */
+var pre = $("#pre"), pct = $("#pct"), pbar = $("#pbar"), hero = $("#hero"), vid = $("#vid");
+var aIntro = $("#aIntro"), flash = $("#flash");
+
+/* Reproduce con sonido e insiste: el primer intento suele rechazarse unos
+   milisegundos antes de que el navegador lo permita. Si de plano lo bloquea,
+   arranca en silencio (eso sí se permite) y se le quita el silencio en cuanto
+   el visitante toca, hace clic o escribe: no hay ningún botón que apretar. */
+function play(a, vol, insistir){
+  var t0 = Date.now(), ventana = insistir || 2600;
+  (function go(){
+    if (!a.paused && !a.muted) return;
+    a.muted = false;
+    if (vol != null) a.volume = vol;
+    var pr = a.play();
+    if (!pr || !pr.catch) return;
+    pr.catch(function(){
+      if (Date.now() - t0 < ventana) return setTimeout(go, 220);
+      a.muted = true; a.play().catch(function(){}); armar();
+    });
+  })();
+}
+var armado = false;
+function armar(){
+  if (armado) return; armado = true;
+  var ev = ["pointerdown","touchstart","touchend","keydown","click","wheel","scroll"];
+  var abrir = function(){
+    if (aIntro) aIntro.muted = false;
+    aud.muted = false;
+    if (aud.paused && pre.classList.contains("go")) amb(true);
+    if (!aud.muted && !aud.paused) ev.forEach(function(e){ removeEventListener(e, abrir); });
+  };
+  ev.forEach(function(e){ addEventListener(e, abrir, {passive:true}); });
+}
+armar();
+if (aIntro && !RM) play(aIntro, 0.65, 2600);
+var p = 0, tick = setInterval(function(){
+  p = Math.min(100, p + Math.random()*13);
+  pct.textContent = Math.round(p); pbar.style.setProperty("--p", p/100);
+  if (p >= 100){ clearInterval(tick); setTimeout(done, 520); }
+}, 190);
+function done(){
+  pre.classList.add("go"); hero.classList.add("go");
+  setTimeout(function(){ pre.style.display = "none"; }, 1900);
+  if (aIntro){ var fo = setInterval(function(){
+      aIntro.volume = Math.max(0, aIntro.volume - .05);
+      if (aIntro.volume <= 0){ clearInterval(fo); aIntro.pause(); } }, 110); }
+  if (vid && !RM){ vid.classList.add("in2"); try{ vid.playbackRate = .62; }catch(e){} vid.play().catch(function(){}); }
+  setTimeout(function(){ if (typeof amb === "function") amb(true); }, 700);
+}
+if (RM){ clearInterval(tick); pre.style.display="none"; hero.classList.add("go"); }
+
+/* ---- el video se disuelve y vuelve a empezar ---- */
+if (vid && !RM){
+  vid.addEventListener("ended", function(){
+    vid.classList.add("rew");
+    if (flash){ flash.classList.remove("on"); void flash.offsetWidth; flash.classList.add("on"); }
+    setTimeout(function(){
+      try { vid.currentTime = 0; } catch(e){}
+      vid.play().catch(function(){});
+      vid.classList.remove("rew");
+    }, 820);
+  });
+}
+
+/* ---- marquesinas ---- */
+$$("[data-marq]").forEach(function(m){
+  var items = m.dataset.marq.split("|"), h = "";
+  for (var r=0; r<2; r++) items.forEach(function(x){ h += "<span>"+x+"</span>"; });
+  m.innerHTML = h;
+});
+
+/* ---- scroll ---- */
+var prog = $("#prog"), hdr = $("#hdr"), last = 0;
+var pars = $$(".par"), hin = $("#hin"), hbg = $("#hbg");
+function onScroll(){
+  var y = scrollY, h = document.body.scrollHeight - innerHeight;
+  prog.style.transform = "scaleX(" + (h>0 ? y/h : 0) + ")";
+  hdr.classList.toggle("solid", y > innerHeight*0.72);
+  hdr.classList.toggle("up", y > last && y > innerHeight);
+  last = y;
+  if (RM) return;
+  /* hero: el texto sube y se desvanece */
+  if (y < innerHeight*1.2){
+    var k = Math.min(1, y/innerHeight);
+    hin.style.transform = "translate3d(0," + (k*-90) + "px,0)";
+    hin.style.opacity = String(1 - k*1.25);
+    hbg.style.transform = "scale(" + (1 + k*0.14) + ")";
+  }
+  pars.forEach(function(el){
+    var b = el.getBoundingClientRect();
+    if (b.bottom < -250 || b.top > innerHeight + 250) return;
+    var q2 = (b.top + b.height/2 - innerHeight/2)/innerHeight;
+    el.style.transform = "translate3d(0," + (q2*(+el.dataset.speed||10)) + "px,0)";
+  });
+}
+addEventListener("scroll", onScroll, {passive:true});
+addEventListener("resize", onScroll);
+addEventListener("load", onScroll);
+onScroll();
+
+/* ---- apariciones ---- */
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+}, {threshold:.15, rootMargin:"0px 0px -6% 0px"});
+$$(".rv,.mask,.edi").forEach(function(el){ io.observe(el); });
+
+/* ---- contadores ---- */
+var cio = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if (!e.isIntersecting) return; cio.unobserve(e.target);
+    if (RM) return;
+    var el = e.target, to = parseFloat(el.dataset.to), dec = +(el.dataset.dec||0);
+    var pre2 = el.dataset.pre||"", suf = el.dataset.suf||"", raw = "raw" in el.dataset, t0 = null;
+    requestAnimationFrame(function f(t){
+      t0 = t0 || t; var k = Math.min(1,(t-t0)/1500), v = to*(1-Math.pow(1-k,3));
+      el.textContent = pre2 + (raw ? Math.round(v) : v.toLocaleString("en-US",{minimumFractionDigits:dec,maximumFractionDigits:dec})) + suf;
+      if (k < 1) requestAnimationFrame(f);
+    });
+  });
+}, {threshold:.5});
+$$("[data-to]").forEach(function(el){ cio.observe(el); });
+
+/* ---- carrusel ---- */
+var car = $("#car"), bar = $("#cbar"), cnt = $("#ccnt");
+function stepW(){ var c = car.querySelector(".prop"); return c ? c.offsetWidth + 24 : 400; }
+function sync(){
+  var max = car.scrollWidth - car.clientWidth, q = max>0 ? car.scrollLeft/max : 0;
+  bar.style.transform = "translateX(" + (q*300) + "%)";
+  cnt.textContent = ("0"+(Math.round(q*3)+1)).slice(-2) + " / 04";
+}
+car.addEventListener("scroll", sync, {passive:true}); sync();
+$("#next").addEventListener("click", function(){ car.scrollBy({left:stepW(), behavior:"smooth"}); });
+$("#prev").addEventListener("click", function(){ car.scrollBy({left:-stepW(), behavior:"smooth"}); });
+var dn=false, sx=0, sl=0, mv=0;
+car.addEventListener("pointerdown", function(e){ dn=true; mv=0; sx=e.clientX; sl=car.scrollLeft; car.classList.add("drag"); });
+addEventListener("pointerup", function(){ if(dn){ dn=false; car.classList.remove("drag"); } });
+car.addEventListener("pointermove", function(e){ if(!dn) return; var d=e.clientX-sx; mv+=Math.abs(d); car.scrollLeft=sl-d; });
+car.addEventListener("click", function(e){ if (mv>24) e.preventDefault(); }, true);
+
+/* ---- música de fondo: automática, sin controles ---- */
+var aud = $("#aud"), fade = null, MAXV = .42;
+function amb(on){
+  if (!on || RM) return;
+  clearInterval(fade);
+  if (aud.paused || aud.muted){ aud.volume = 0; play(aud, 0, 6000); }
+  fade = setInterval(function(){
+    aud.volume = Math.min(MAXV, aud.volume + .015);
+    if (aud.volume >= MAXV) clearInterval(fade); }, 90);
+}
+
+/* ---- cursor, inclinación y botones magnéticos ---- */
+if (matchMedia("(hover:hover)").matches && !RM){
+  var cu = $("#cur"), cx=0, cy=0, tx=0, ty=0;
+  addEventListener("pointermove", function(e){ tx=e.clientX; ty=e.clientY; });
+  (function raf(){ cx+=(tx-cx)*.18; cy+=(ty-cy)*.18; cu.style.transform="translate("+cx+"px,"+cy+"px) translate(-50%,-50%)"; requestAnimationFrame(raf); })();
+  $$("a,button").forEach(function(el){
+    el.addEventListener("pointerenter", function(){ cu.classList.add("big"); });
+    el.addEventListener("pointerleave", function(){ cu.classList.remove("big"); });
+  });
+  $$(".mag").forEach(function(el){
+    el.addEventListener("pointermove", function(e){
+      var r = el.getBoundingClientRect();
+      el.style.transform = "translate(" + (e.clientX-r.left-r.width/2)*.3 + "px," + (e.clientY-r.top-r.height/2)*.45 + "px)";
+    });
+    el.addEventListener("pointerleave", function(){ el.style.transform = ""; });
+  });
+  $$(".tilt").forEach(function(el){
+    el.addEventListener("pointermove", function(e){
+      var r = el.getBoundingClientRect();
+      var rx = ((e.clientY-r.top)/r.height - .5) * -7, ry = ((e.clientX-r.left)/r.width - .5) * 7;
+      el.style.transform = "perspective(800px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-5px)";
+    });
+    el.addEventListener("pointerleave", function(){ el.style.transform = ""; });
+  });
+}
+})();
+</script>
+<script src="/estaticos/guion.js" defer></script>
+</body></html>

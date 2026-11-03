@@ -1,0 +1,72 @@
+MOTOR DEL SITIO CRSINMOB
+========================
+
+Esta carpeta se sube a la raiz del repositorio, junto a "propiedades" y
+"fotos". No hay que tocar nada de lo que ya subio.
+
+Queda asi:
+
+  crsinmob-web/
+    propiedades/        <- sus fichas .txt   (ya esta)
+    fotos/              <- sus fotos         (ya esta)
+    motor/              <- nuevo
+    netlify.toml        <- nuevo
+    requirements.txt    <- nuevo
+    LEEME-MOTOR.txt     <- nuevo
+
+
+COMO AGREGAR UNA PROPIEDAD
+--------------------------
+1. Suba su descripcion como propiedades/nombre.txt
+2. Suba sus fotos en fotos/nombre/   (el mismo nombre)
+Listo. En un minuto aparece en el sitio.
+
+
+COMO QUITARLA
+-------------
+Borre propiedades/nombre.txt
+Desaparece la landing, el enlace y el sitemap. Las fotos pueden quedarse.
+
+
+COMO CAMBIAR LA FOTO PRINCIPAL
+------------------------------
+Pongale "00-" al principio del nombre del archivo.
+Ejemplo: 00-fachada.jpg
+
+
+QUE LEE EL MOTOR DE CADA FICHA
+------------------------------
+Del texto que usted escribe saca solo:
+  - el titulo        : la primera linea, antes y despues del "|"
+  - el precio        : el primer "$0,000,000"; si dice "oportunidad" usa ese
+  - los metros       : "000 m2 de construccion" / "000 m2 de terreno"
+  - las recamaras    : "0 recamaras" o "0 habitaciones"
+  - los banos        : "0 banos" y "0 medios banos"
+  - los autos        : la linea de cochera o estacionamiento
+  - caracteristicas  : todas las lineas con vineta
+  - descripcion      : los parrafos normales
+  - el video         : cualquier liga de YouTube que aparezca
+
+Si algo no esta escrito, simplemente no se muestra. El sitio no se rompe.
+
+
+SI UNA FICHA TIENE UN ERROR
+---------------------------
+La compilacion se detiene, Netlify le manda un correo diciendo cual
+archivo fue, y EL SITIO ANTERIOR SIGUE PUBLICADO. Nunca se queda caido.
+
+
+COMO CAMBIAR EL VIDEO, LA MUSICA O EL POSTER DE LA PORTADA
+----------------------------------------------------------
+Cree una carpeta "portada" en la raiz del repositorio y ponga ahi:
+
+  portada/loquesea.mp4   -> el video de la portada
+  portada/poster.jpg     -> opcional: el cuadro que se ve mientras carga.
+                            Si no lo pone, el motor usa la foto principal
+                            de la propiedad mas cara.
+  portada/musica.mp3     -> la musica de fondo del sitio
+  portada/intro.mp3      -> el sonido de la pantalla de carga
+
+Solo lo que ponga se reemplaza; lo demas sigue igual. No hay que tocar
+el motor. El video conviene que pese menos de 5 MB: si pesa mas, el
+motor se lo avisa en el registro de compilacion.
