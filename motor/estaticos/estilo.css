@@ -121,12 +121,14 @@ p{margin:0}
 @keyframes flash{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,20,51,.62) 0%,rgba(11,20,51,.2) 42%,rgba(11,20,51,.9) 100%)}
 .hero-in{width:100%}
-.hero h1{font-size:clamp(31px,4.5vw,64px);max-width:20ch;color:#fff}
+.hero h1{font-size:clamp(31px,4.5vw,64px);max-width:20ch;color:#fff;
+  -webkit-text-stroke:.045em #000;paint-order:stroke fill;
+  text-shadow:0 3px 22px rgba(0,0,0,.55)}
 .ln{display:block;overflow:hidden;padding-bottom:.08em}
 .w{display:inline-block;white-space:nowrap}
 .ch{display:inline-block;transform:translateY(110%) rotate(5deg);opacity:0;transition:transform 1s var(--e),opacity .7s}
 .go .ch{transform:none;opacity:1}
-.ln em{font-style:italic;color:var(--gold2)}
+.ln em{font-style:italic;color:#fff}
 .hero-sub{margin-top:26px;max-width:44ch;color:rgba(255,255,255,.85);font-size:clamp(16px,1.6vw,19px);opacity:0;transform:translateY(18px);transition:all 1s var(--e) .75s}
 .go .hero-sub{opacity:1;transform:none}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px;opacity:0;transform:translateY(18px);transition:all 1s var(--e) .88s}
