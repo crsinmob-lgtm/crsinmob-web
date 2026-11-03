@@ -52,40 +52,8 @@ $$("[data-words]").forEach(function(el){
 
 /* ---- precarga ---- */
 var pre = $("#pre"), pct = $("#pct"), pbar = $("#pbar"), hero = $("#hero"), vid = $("#vid");
-var aIntro = $("#aIntro"), flash = $("#flash");
+var flash = $("#flash");
 
-/* Reproduce con sonido e insiste: el primer intento suele rechazarse unos
-   milisegundos antes de que el navegador lo permita. Si de plano lo bloquea,
-   arranca en silencio (eso sí se permite) y se le quita el silencio en cuanto
-   el visitante toca, hace clic o escribe: no hay ningún botón que apretar. */
-function play(a, vol, insistir){
-  var t0 = Date.now(), ventana = insistir || 2600;
-  (function go(){
-    if (!a.paused && !a.muted) return;
-    a.muted = false;
-    if (vol != null) a.volume = vol;
-    var pr = a.play();
-    if (!pr || !pr.catch) return;
-    pr.catch(function(){
-      if (Date.now() - t0 < ventana) return setTimeout(go, 220);
-      a.muted = true; a.play().catch(function(){}); armar();
-    });
-  })();
-}
-var armado = false;
-function armar(){
-  if (armado) return; armado = true;
-  var ev = ["pointerdown","touchstart","touchend","keydown","click","wheel","scroll"];
-  var abrir = function(){
-    if (aIntro) aIntro.muted = false;
-    aud.muted = false;
-    if (aud.paused && pre.classList.contains("go")) amb(true);
-    if (!aud.muted && !aud.paused) ev.forEach(function(e){ removeEventListener(e, abrir); });
-  };
-  ev.forEach(function(e){ addEventListener(e, abrir, {passive:true}); });
-}
-armar();
-try { aud.load(); } catch (err) {}
 
 /* La pantalla de carga solo sale mientras el sitio carga de verdad, y una
    sola vez por visita: si el visitante va a una propiedad y regresa, ya no
@@ -95,12 +63,6 @@ try { YA_VISTA = sessionStorage.getItem("crs-intro") === "1"; } catch (err) {}
 
 var MIN = 900, MAX = 6500, arranque = Date.now(), cargado = false, tick = null;
 
-/* Si el navegador deja sonar la intro, le damos aire para que se escuche;
-   si la bloquea, no tiene caso esperar y entramos en cuanto cargue. */
-function minimoReal(){
-  var sonando = aIntro && !aIntro.paused && !aIntro.muted && aIntro.currentTime > 0.15;
-  return sonando ? 2600 : MIN;
-}
 
 function marcar(){ try { sessionStorage.setItem("crs-intro", "1"); } catch (err) {} }
 
@@ -108,13 +70,7 @@ function entrar(){
   pre.classList.add("go"); hero.classList.add("go");
   setTimeout(function(){ pre.style.display = "none"; }, 1900);
   marcar();
-  if (aIntro && !aIntro.paused){
-    var fo = setInterval(function(){
-      aIntro.volume = Math.max(0, aIntro.volume - .05);
-      if (aIntro.volume <= 0){ clearInterval(fo); aIntro.pause(); } }, 110);
-  }
   arrancaHero();
-  setTimeout(function(){ if (typeof amb === "function") amb(true); }, 250);
 }
 function done(){ entrar(); }
 
@@ -132,7 +88,6 @@ function saltar(){
   hero.classList.add("go");
   marcar();
   arrancaHero();
-  setTimeout(function(){ if (typeof amb === "function") amb(true); }, 300);
 }
 
 if (RM || YA_VISTA){
@@ -141,14 +96,12 @@ if (RM || YA_VISTA){
   if (document.readyState === "complete") cargado = true;
   else addEventListener("load", function(){ cargado = true; });
 
-  if (aIntro) play(aIntro, 0.65, 2600);
-
   tick = setInterval(function(){
     var t = Date.now() - arranque;
     var p = cargado ? 100 : Math.min(94, (t / MAX) * 100 + 6);
     pct.textContent = Math.round(p);
     pbar.style.setProperty("--p", p / 100);
-    if ((cargado && t >= minimoReal()) || t >= MAX){
+    if ((cargado && t >= MIN) || t >= MAX){
       clearInterval(tick); tick = null;
       pct.textContent = 100; pbar.style.setProperty("--p", 1);
       setTimeout(done, 280);
@@ -246,17 +199,6 @@ car.addEventListener("pointerdown", function(e){ dn=true; mv=0; sx=e.clientX; sl
 addEventListener("pointerup", function(){ if(dn){ dn=false; car.classList.remove("drag"); } });
 car.addEventListener("pointermove", function(e){ if(!dn) return; var d=e.clientX-sx; mv+=Math.abs(d); car.scrollLeft=sl-d; });
 car.addEventListener("click", function(e){ if (mv>24) e.preventDefault(); }, true);
-}
-
-/* ---- música de fondo: automática, sin controles ---- */
-var aud = $("#aud"), fade = null, MAXV = .42;
-function amb(on){
-  if (!on || RM) return;
-  clearInterval(fade);
-  if (aud.paused || aud.muted){ aud.volume = 0; play(aud, 0, 6000); }
-  fade = setInterval(function(){
-    aud.volume = Math.min(MAXV, aud.volume + .015);
-    if (aud.volume >= MAXV) clearInterval(fade); }, 90);
 }
 
 /* ---- cursor, inclinación y botones magnéticos ---- */
