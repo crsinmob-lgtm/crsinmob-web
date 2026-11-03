@@ -79,22 +79,68 @@ function armar(){
   ev.forEach(function(e){ addEventListener(e, abrir, {passive:true}); });
 }
 armar();
-if (aIntro && !RM) play(aIntro, 0.65, 2600);
-var p = 0, tick = setInterval(function(){
-  p = Math.min(100, p + Math.random()*13);
-  pct.textContent = Math.round(p); pbar.style.setProperty("--p", p/100);
-  if (p >= 100){ clearInterval(tick); setTimeout(done, 520); }
-}, 190);
-function done(){
+
+/* La pantalla de carga solo sale mientras el sitio carga de verdad, y una
+   sola vez por visita: si el visitante va a una propiedad y regresa, ya no
+   vuelve a aparecer. */
+var YA_VISTA = false;
+try { YA_VISTA = sessionStorage.getItem("crs-intro") === "1"; } catch (err) {}
+
+var MIN = 900, MAX = 6000, arranque = Date.now(), cargado = false, tick = null;
+
+function marcar(){ try { sessionStorage.setItem("crs-intro", "1"); } catch (err) {} }
+
+function entrar(){
   pre.classList.add("go"); hero.classList.add("go");
   setTimeout(function(){ pre.style.display = "none"; }, 1900);
-  if (aIntro){ var fo = setInterval(function(){
+  marcar();
+  if (aIntro && !aIntro.paused){
+    var fo = setInterval(function(){
       aIntro.volume = Math.max(0, aIntro.volume - .05);
-      if (aIntro.volume <= 0){ clearInterval(fo); aIntro.pause(); } }, 110); }
-  if (vid && !RM){ vid.classList.add("in2"); try{ vid.playbackRate = .62; }catch(e){} vid.play().catch(function(){}); }
+      if (aIntro.volume <= 0){ clearInterval(fo); aIntro.pause(); } }, 110);
+  }
+  arrancaHero();
   setTimeout(function(){ if (typeof amb === "function") amb(true); }, 700);
 }
-if (RM){ clearInterval(tick); pre.style.display="none"; hero.classList.add("go"); }
+function done(){ entrar(); }
+
+function arrancaHero(){
+  if (vid && !RM){
+    vid.classList.add("in2");
+    try { vid.playbackRate = .62; } catch (err) {}
+    vid.play().catch(function(){});
+  }
+}
+
+function saltar(){
+  if (tick) clearInterval(tick);
+  pre.style.display = "none";
+  hero.classList.add("go");
+  marcar();
+  arrancaHero();
+  setTimeout(function(){ if (typeof amb === "function") amb(true); }, 300);
+}
+
+if (RM || YA_VISTA){
+  saltar();
+} else {
+  if (document.readyState === "complete") cargado = true;
+  else addEventListener("load", function(){ cargado = true; });
+
+  if (aIntro) play(aIntro, 0.65, 2600);
+
+  tick = setInterval(function(){
+    var t = Date.now() - arranque;
+    var p = cargado ? 100 : Math.min(94, (t / MAX) * 100 + 6);
+    pct.textContent = Math.round(p);
+    pbar.style.setProperty("--p", p / 100);
+    if ((cargado && t >= MIN) || t >= MAX){
+      clearInterval(tick); tick = null;
+      pct.textContent = 100; pbar.style.setProperty("--p", 1);
+      setTimeout(done, 280);
+    }
+  }, 60);
+}
 
 /* ---- el video se disuelve y vuelve a empezar ---- */
 if (vid && !RM){
