@@ -31,6 +31,11 @@ SALIDA    = os.path.join(RAIZ, "publicado")
 SITIO    = os.environ.get("URL") or os.environ.get("SITIO") or "https://inmobiliariacrsinmob.netlify.app"
 SITIO    = SITIO.rstrip("/")
 WHATSAPP = "523311307470"
+
+# Se configuran en Netlify, en Project configuration -> Environment variables.
+# Si estan vacias, el sitio sale sin medicion y sin etiqueta de verificacion.
+GA_ID     = (os.environ.get("GA_ID") or "").strip()          # G-XXXXXXXXXX
+VERIFICAR = (os.environ.get("GOOGLE_VERIFICACION") or "").strip()
 CORREO   = "crsinmob@gmail.com"
 NEGOCIO  = "CRSINMOB Real Estate"
 
@@ -479,6 +484,20 @@ def jsonld_propiedad(p):
 
 # -------------------------------------------------------------------- paginas
 
+def medicion():
+    """Etiqueta de verificacion de Google y medicion de Analytics."""
+    partes = []
+    if VERIFICAR:
+        partes.append('<meta name="google-site-verification" content="%s">' % e(VERIFICAR))
+    if GA_ID:
+        partes.append(
+            '<script async src="https://www.googletagmanager.com/gtag/js?id={id}"></script>\n'
+            '<script>window.dataLayer=window.dataLayer||[];'
+            'function gtag(){{dataLayer.push(arguments);}}'
+            'gtag("js",new Date());gtag("config","{id}");</script>'.format(id=e(GA_ID)))
+    return "\n".join(partes)
+
+
 def cabecera_comun(solid=True):
     return '''<div class="prog" id="prog"></div>
 <div class="cur" id="cur"><span>Ver</span></div>
@@ -533,11 +552,12 @@ def encabezado_pagina(titulo, desc, canonica, imagen, extra_css=True, jsonld="")
 <link rel="stylesheet" href="/estaticos/estilo.css">
 {css2}
 <script>document.documentElement.className+=" js";</script>
+{medicion}
 {jsonld}
 </head><body>
 '''.format(titulo=e(titulo), desc=e(desc), canon=e(canonica), img=e(imagen),
            css2='<link rel="stylesheet" href="/estaticos/estilo-propiedad.css">' if extra_css else "",
-           jsonld=jsonld)
+           medicion=medicion(), jsonld=jsonld)
 
 
 def aplica_portada(props):
@@ -627,6 +647,7 @@ def pagina_portada(props):
         "DESC": desc,
         "SITIO": SITIO,
         "JSONLD": jsonld_portada(props),
+        "MEDICION": medicion(),
         "MARQUEE": marquee,
         "ZONAS": zonas_html,
         "NCOL": str(ncol),
@@ -900,6 +921,8 @@ def main():
     peso = sum(os.path.getsize(os.path.join(r, f))
                for r, _, fs in os.walk(SALIDA) for f in fs) / 1e6
     print("\n== Listo ==")
+    print("   medición: %s · verificación: %s"
+          % (GA_ID or "sin configurar", "puesta" if VERIFICAR else "sin configurar"))
     print("   %d propiedades · %d páginas · %.1f MB" % (len(props), 2 + len(props) * 2, peso))
     if avisos:
         print("\n   %d aviso(s):" % len(avisos))
