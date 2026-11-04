@@ -490,11 +490,21 @@ def medicion():
     if VERIFICAR:
         partes.append('<meta name="google-site-verification" content="%s">' % e(VERIFICAR))
     if GA_ID:
-        partes.append(
-            '<script async src="https://www.googletagmanager.com/gtag/js?id={id}"></script>\n'
-            '<script>window.dataLayer=window.dataLayer||[];'
-            'function gtag(){{dataLayer.push(arguments);}}'
-            'gtag("js",new Date());gtag("config","{id}");</script>'.format(id=e(GA_ID)))
+        # Google entrega dos formas distintas segun como se dio de alta:
+        #   GTM-xxxxxxx  -> etiqueta de Google con contenedor (gtm.js)
+        #   G-xxxxxxxxx  -> id de medicion de Analytics        (gtag.js)
+        if GA_ID.upper().startswith("GTM-"):
+            partes.append(
+                '<script async src="https://www.googletagmanager.com/gtm.js?id={id}"></script>\n'
+                '<script>window.dataLayer=window.dataLayer||[];'
+                'function gtag(){{dataLayer.push(arguments);}}'
+                'gtag("js",new Date());</script>'.format(id=e(GA_ID)))
+        else:
+            partes.append(
+                '<script async src="https://www.googletagmanager.com/gtag/js?id={id}"></script>\n'
+                '<script>window.dataLayer=window.dataLayer||[];'
+                'function gtag(){{dataLayer.push(arguments);}}'
+                'gtag("js",new Date());gtag("config","{id}");</script>'.format(id=e(GA_ID)))
     return "\n".join(partes)
 
 
