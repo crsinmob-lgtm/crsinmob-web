@@ -226,4 +226,16 @@ if (matchMedia("(hover:hover)").matches && !RM){
     el.addEventListener("pointerleave", function(){ el.style.transform = ""; });
   });
 }
+
+/* Avisa a Analytics cuando alguien toca WhatsApp, pide la ficha o escribe
+   por correo. Asi se sabe que propiedad genera contactos, no solo visitas. */
+addEventListener("click", function(ev){
+  var a = ev.target && ev.target.closest ? ev.target.closest("a") : null;
+  if (!a || typeof gtag !== "function") return;
+  var href = a.getAttribute("href") || "";
+  var datos = {pagina: location.pathname, titulo: document.title};
+  if (href.indexOf("wa.me") > -1)        gtag("event", "contacto_whatsapp", datos);
+  else if (/ficha\.html$/.test(href))    gtag("event", "descarga_ficha", datos);
+  else if (href.indexOf("mailto:") === 0) gtag("event", "contacto_correo", datos);
+}, true);
 })();
